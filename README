@@ -1,0 +1,45 @@
+XI CHEN 8869487524
+I completed the compulsory requirements in the assignment.
+
+In serverM.cpp, there is a UDP socket to communicate with server A & B, 
+and a TCP socket to communicate with the client.
+The main server recieves the full username lists from server A & B, 
+sends the client's requested names to the corresponding backend server,
+and recieves intersection results from each.
+serverM.cpp then finds the intersection between the replied slots,
+and reply to the client the final result including the non-existing names.
+
+ServerA.cpp and serverB.cpp have identical structure and functions,
+but deal with two different input sources: a.txt and b.txt.
+Each backend server reads the input, stores the usernames in a vector, 
+and stores the user names and slot pairs in an unordered_map data structure.
+It then concatnate each name with a space in a stringstream
+and send it to the main server via UDP.
+It recieves requested names from main server and 
+find the intersection using the function find_intersection defined in helper_funcs.cpp.
+
+client.cpp communicates with the main server via TCP.
+It takes user input and send the concatnated names to the main server.
+It will keep asking for user input if the user only pressed "enter" with no input. 
+After displaying which requested names do not exist (if any) and 
+the intersection result for the existed names,
+it continues to take another user input.
+If there is no intersection for the requested names, the display message is
+"Time intervals [none] works for ..."
+
+The extra file helper_funcs.cpp and its header file defines some helper functions including 
+- find_intersection: find the intersection between two time intervals/slots
+- slotVector_to_str: convert the time slots stored in a vector to string format [[start1, end1], [start2, end2]...]
+- slotStr_to_vector: store the time slots in string format [[start1, end1], [start2, end2]...] in a vector
+- namesVector_to_str: convert the usernames stored in a vector to string format, separated by a comma and space 
+
+The format of all messages exchanged between sockets are in const char* type. 
+In most cases the usernames are concatenated and delimited with a space.
+In the cases where serverM replies to client or sends requests to serverA/B, 
+the usernames are delimited with a space AND a comma.
+The slots are sent in the same format as given in the input files.
+
+Reused Code:
+- the majority of code for TCP and UDP sockets referred to Beej's guide.
+- the code to remove white space in serverA.cpp and serverB.cpp, refering to: https://stackoverflow.com/questions/83439/remove-spaces-from-stdstd::string-in-c
+- the code to define serverM's UDP socket address in serverA.cpp and serverB.cpp was taught by TA
