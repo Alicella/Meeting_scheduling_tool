@@ -1,5 +1,5 @@
-XI CHEN 8869487524
-I completed the compulsory requirements in the assignment.
+This is an individual project about using UDP and TCP sockets to schedule meetings with given user slots. 
+It is a project for USC EE450 Intro to Computer Networks course.
 
 In serverM.cpp, there is a UDP socket to communicate with server A & B, 
 and a TCP socket to communicate with the client.
